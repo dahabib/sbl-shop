@@ -10,7 +10,6 @@ const Orders = () => {
             .then(res => res.json())
             .then(data => setOrders(data))
     }, [])
-    console.log(orders);
 
     const TableRows = props => {
         const { name, price } = props.product;
