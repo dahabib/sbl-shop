@@ -36,12 +36,12 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/add-product">
+          <Route path="/addProduct">
             <AddProduct />
           </Route>
           <PrivateRoute>
-          <Checkout />
-        </PrivateRoute>
+            <Checkout />
+          </PrivateRoute>
         </Switch>
       </Router>
     </UserContext.Provider>

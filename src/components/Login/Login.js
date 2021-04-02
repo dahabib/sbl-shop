@@ -1,48 +1,42 @@
 import React, { useContext } from 'react';
 import firebase from 'firebase/app';
-
 import "firebase/auth";
 import firebaseConfig from './firebase.config';
 import { UserContext } from '../../App';
 import { useForm } from 'react-hook-form';
+import { useHistory, useLocation } from 'react-router';
 // export const auth = firebase.auth();
 
 const Login = () => {
-    // const history = useHistory();
-    // const location = useLocation();
-    // const { from } = location.state || { from: { pathname: "/" } };
+    const history = useHistory();
+    const location = useLocation();
+    const { from } = location.state || { from: { pathname: "/" } };
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    
 
-    var googleProvider = new firebase.auth.GoogleAuthProvider();
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
     const { register, onSubmit, handleSubmit, errors } = useForm();
 
 
     if (!firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
     } else {
-        firebase.app(); // if already initialized, use that one
+        firebase.app(); 
     }
 
     const handleGoogleSignIn = () => {
-        firebase.auth()
-            .signInWithPopup(googleProvider)
-            .then((result) => {
-                var credential = result.credential;
-                console.log(credential);
-
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                // var token = credential.accessToken;
-                // The signed-in user info.
-                var user = result.user;
-                // console.log(user);
-                setLoggedInUser(user);
-                // ...
-            }).catch((error) => {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log(errorCode, errorMessage);
-            });
+        const googleProvider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(googleProvider)
+        .then((result) => {
+            const { displayName, email, photoURL } = result.user;
+            const signedInUser = {isSignedIn: true,  name: displayName, email, photo: photoURL };
+            // setUser(signedInUser);
+            setLoggedInUser(signedInUser);
+            history.replace(from);
+        }).catch((error) => {
+            var errorMessage = error.message;
+            console.log(errorMessage);
+        });
     }
 
     return (
@@ -51,15 +45,7 @@ const Login = () => {
                 <div className="col-md-6 col-sm-12 col-xs-12 mx-auto">
 
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className="form-group">
-                            <div className="checkbox">
-                                <label>
-                                    <input type="checkbox" data-toggle="toggle" data-on="Sign In" data-off="Sign Up" />
-                                </label>
-                            </div>
-                        </div>
                         <h3 className="text-center">Sign In</h3>
-
                         <div className="form-group">
                             <input name="name" className="form-control" ref={register({ required: true, pattern: /\S+@\S+\.\S+/ })} placeHolder="Name" />
                             {errors.name && "Name is required"}
