@@ -1,17 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AddProduct from '../AddProduct/AddProduct';
-import EditProduct from '../EditProduct/EditProduct';
 
-const selectedComponent = window.location.pathname;
-
-const Admin = () => {
-
+const EditProduct = () => {
     return (
         <div className="container-fluid">
-            <div className="row">
-
-            </div>
             <div className="row">
                 <div className="col-md-2 bg-dark vh-100">
                 <div class="d-flex flex-column bd-highlight mb-3">
@@ -21,11 +14,11 @@ const Admin = () => {
                     </div>
                 </div>
                 <div className="col-md-9">
+                    
                 </div>
             </div>
         </div>
-
     );
 };
 
-export default Admin;
+export default EditProduct;

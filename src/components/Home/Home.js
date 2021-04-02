@@ -8,14 +8,13 @@ const Home = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetch('https://immense-river-37251.herokuapp.com/product')
+        fetch('https://immense-river-37251.herokuapp.com/products')
             .then(res => res.json())
             .then(data => setProducts(data))
     }, [])
-    console.log(products);
     return (
         <div className="container">
-            <div className="row row-cols-1 row-cols-md-4 g-4">
+            <div className="row row-cols-1 row-cols-md-4 gx-3">
                 {
                     products.map(product => <Product product={product}></Product>)
                 }

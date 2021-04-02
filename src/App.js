@@ -6,9 +6,10 @@ import Orders from './components/Orders/Orders';
 import Admin from './components/Admin/Admin';
 import Deals from './components/Deals/Deals';
 import Login from './components/Login/Login';
-import AddProduct from './components/Admin/AddProduct';
+import AddProduct from './components/AddProduct/AddProduct';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Checkout from './components/Checkout/Checkout';
+import EditProduct from './components/EditProduct/EditProduct';
 
 export const UserContext = createContext({});
 
@@ -27,20 +28,26 @@ function App() {
           <Route path="/order">
             <Orders />
           </Route>
-          <Route path="/admin">
-            <Admin />
-          </Route>
           <Route path="/deals">
             <Deals />
           </Route>
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/addProduct">
+          <Route path="/add-product">
             <AddProduct />
           </Route>
-          <PrivateRoute>
+          <PrivateRoute path="/orders">
+            <Orders />
+          </PrivateRoute>
+          <PrivateRoute path="/checkout">
             <Checkout />
+          </PrivateRoute>
+          <PrivateRoute path="/admin">
+            <Admin />
+          </PrivateRoute>
+          <PrivateRoute path="/edit-product">
+            <EditProduct />
           </PrivateRoute>
         </Switch>
       </Router>
